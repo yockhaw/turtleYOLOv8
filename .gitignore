@@ -1,0 +1,22 @@
+__pycache__/
+*.pyc
+
+# Large data / images / videos
+data/
+datasets/
+*.jpg
+*.jpeg
+*.png
+*.tif
+*.csv
+*.mp4
+*.avi
+
+# YOLO weights and logs
+*.pt
+*.pth
+runs/
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+venv/

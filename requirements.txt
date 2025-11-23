@@ -1,0 +1,14 @@
+pandas
+numpy
+matplotlib
+shapely
+rasterio
+seaborn
+scipy
+exiftool_wrapper
+ultralytics
+opencv-python
+timezonefinder 
+datetime
+pytz
+pyexiftool
