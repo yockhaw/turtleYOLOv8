@@ -34,6 +34,20 @@ def clean_metadata(df_metadata):
     })
     return df_filtered
 
+# YX: Modified to use FileCreateDate as QuickTime does not always include CreateDate information
+def clean_metadata_v2(df_metadata):
+    df_filtered = df_metadata[
+        ['File:FileName', 'File:Directory', 'File:FileCreateDate', 'QuickTime:Duration', 'Composite:GPSLatitude', 'Composite:GPSLongitude']
+    ].rename(columns={
+        'File:FileName': 'FileName',
+        'File:Directory': 'Directory',
+        'File:FileCreateDate': 'CreateDate',
+        'QuickTime:Duration': 'Duration',
+        'Composite:GPSLatitude': 'Latitude',
+        'Composite:GPSLongitude': 'Longitude'
+    })
+    return df_filtered
+
 def get_timezone(lat, lon, tf=TimezoneFinder()):
     tz = tf.timezone_at(lat=lat, lng=lon)
     if tz is None:

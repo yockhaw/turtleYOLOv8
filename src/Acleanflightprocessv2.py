@@ -1,16 +1,61 @@
 import os
 import pandas as pd
 from functions.processingfuncs import *
+import argparse
 
 # This is the first file to run
 # Put the data downloaded from Airdata into the flight_folder path
 
+def parse_arguments():
+    parser = argparse.ArgumentParser(
+        description="Input video folder, flight data folder and output folder"
+    )
+
+    parser.add_argument(
+        "--video_folder",
+        type=str,
+        required=True
+    )
+
+    parser.add_argument(
+        "--flight_folder",
+        type=str,
+        required=True
+    )
+
+    parser.add_argument(
+        "--output_folder",
+        type=str,
+        required=True
+    )
+
+    parser.add_argument(
+        "--output_metadata",
+        type=str,
+        required=True
+    )
+
+    parser.add_argument(
+        "--output_metadata_categorized",
+        type=str,
+        required=True
+    )
+
+    parser.add_argument(
+        "--output_frames",
+        type=str,
+        required=True
+    )
+
+    return parser.parse_args()
+
 def main():
+    args = parse_arguments()
     # videos
-    video_folder = '/Volumes/External SS/cleanvideos'
+    video_folder = args.video_folder
     # flight records from Airdata
-    flight_folder = '/Users/fooyockhaw/Desktop/allflightdata'
-    output_folder = '/Users/fooyockhaw/Desktop/flightforuniquevideosv3'
+    flight_folder = args.flight_folder
+    output_folder = args.output_folder
     
     os.makedirs(output_folder, exist_ok=True)
 
@@ -19,10 +64,11 @@ def main():
     
     print("Extracting video metadata...")
     df_metadata = extract_video_metadata(video_folder)
-    df_metadata.to_csv('/Users/fooyockhaw/Desktop/video_metadatav3.csv', index=False)
+    df_metadata.to_csv(args.output_metadata, index=False)
     
     print("Cleaning and filtering metadata...")
     df_filtered = clean_metadata(df_metadata)
+    print(df_filtered)
     
     # using timezone to calculate local time, useful later
     print("Computing time and timezone info...")
@@ -35,11 +81,11 @@ def main():
     # As every flight can have multiple videos taken, it is important to match each video to whichever flight record it belongs it based on time taken
     print("Matching videos to flight records...")
     df_filtered = match_videos_to_flights(df_filtered, flight_times)
-    df_filtered.to_csv('/Users/fooyockhaw/Desktop/video_metadata_categorizedv3.csv', index=False)
+    df_filtered.to_csv(args.output_metadata_categorized, index=False)
     
     # As resolution of flight record is 100 ms, a 30 second flight will yield 300 rows of data - this is to keep track of frames in each video
     print("Extracting flight data per video...")
-    extract_flight_data_per_video(df_filtered, flight_folder, output_folder, '/Users/fooyockhaw/Desktop/rows_extracted_summary.csv')
+    extract_flight_data_per_video(df_filtered, flight_folder, output_folder, args.output_frames)
     
     print("Processing complete.")
 
