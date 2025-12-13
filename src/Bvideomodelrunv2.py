@@ -103,7 +103,7 @@ def main():
     time_records = []
 
     video_files_to_run = [
-        f for f in os.listdir(paths['resized']) 
+        f for f in os.listdir(paths['og']) 
         if f.lower().endswith(video_extensions)
     ]
 
