@@ -2,7 +2,7 @@
 
 To run the preprocessing, use the following command: (replace the paths with the path of where you downloaded the data or where you stored your personal data)
 ```
-python src/Acleanflightprocessv2.py --video_folder ./data/resized_folder --flight_folder ./data/allflightdata --output_folder ./data/flightforuniquevideosv3 --output_metadata ./data/flightforuniquevideosv3/video_metadatav3.csv --output_metadata_categorized ./data/flightforuniquevideosv3/video_metadata_categorizedv3.csv --output_frames ./data/flightforuniquevideosv3/rows_extracted_summary.csv
+python src/Acleanflightprocessv2.py --video_folder ./data/cleanvideos --flight_folder ./data/allflightdata --output_folder ./data/flightforuniquevideosv3 --output_metadata ./data/flightforuniquevideosv3/video_metadatav3.csv --output_metadata_categorized ./data/flightforuniquevideosv3/video_metadata_categorizedv3.csv --output_frames ./data/flightforuniquevideosv3/rows_extracted_summary.csv
 ```
 
 To run the turtle track detections on turtle track videos, use the following command: (replace the paths with the path of where you downloaded the data or where you stored your personal data)
