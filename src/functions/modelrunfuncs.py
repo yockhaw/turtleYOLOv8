@@ -189,16 +189,17 @@ def process_videov2(video_file, paths, metadata_dicts, model_path, save_frames=F
                 trim_video(resized_path, resized_path, duration_seconds)
 
     detection_start = time.time()
-    if not os.path.exists(detection_csv_path):
-        run_yolo_on_videov2(
-            model_path=model_path,
-            video_path=resized_path,
-            output_csv_path=detection_csv_path,
-            save_frames=save_frames,
-            screencap_dir=screencap_folder
-        )
-    else:
-        print(f"Detection results already exist for {video_file}, skipping detection.")
+    if not os.path.exists(resized_path):
+        raise RuntimeError(f"Resized video missing: {resized_path}")
+
+    print(f"Running detections on resized video for {video_file}...")
+    run_yolo_on_videov2(
+        model_path=model_path,
+        video_path=resized_path,
+        output_csv_path=detection_csv_path,
+        save_frames=save_frames,
+        screencap_dir=screencap_folder
+    )
     detection_duration = round(time.time() - detection_start, 2)
 
     total_duration = round(resize_duration + detection_duration, 2)
