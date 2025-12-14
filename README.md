@@ -15,12 +15,17 @@ To run the turtle track detections on turtle track images, use the following com
 python src/Bphotomodelrun.py --model_path ./data/model/YOLOv8S.pt --photos_path ./data/photos --output_detections ./results/detectionsgraph.csv 
 ```
 
-To run the mapping of the turtle track detections onto a satellite image use the following command: (replace the paths with the path of where you downloaded the data)
+To run the mapping of the turtle track detections from photos onto a satellite image use the following command: (replace the paths with the path of where you downloaded the data)
 ```
 python src/Dphotosmap.py --airdata_flight_record ./data/photosmetadataforD/19th.csv --qgis_metadata ./data/photosmetadataforD/19thcsv.csv --detections ./results/detectionsgraph.csv --satellite_image ./data/qgistiff/clippedCHTS.tif
 ```
 
 To get the video metadata, use the following command: (replace the paths with the path of where you downloaded the data or where you stored your personal data)
 ```
-python src/Cvideometadata.py --ogvideo_folder NIL --metadata_folder ./data/videometadata
+python src/Cvideometadata.py --ogvideo_folder ./data/cleanvideos --metadata_folder ./data/videometadata
+```
+
+To run the mapping of the turtle track detections from videos onto a satellite image use the following command: (replace the paths with the path of where you downloaded the data)
+```
+python src/Dvideomap.py --flight_extract_folder ./data/flightforuniquevideosv3 --full_flight_metadata ./data/flightforuniquevideosv3/video_metadata_categorizedv3.csv --videoresults_folder ./results_video --qgistiff_folder ./data/qgistiff --finalmaps_folder ./results_video/maps --flight_record_metadata_folder ./data/videometadata --bbcount_folder ./results_video/bbcount
 ```
