@@ -60,6 +60,8 @@ def parse_arguments():
     return parser.parse_args()
 
 def main():
+    start_time = time.time()
+    
     args = parse_arguments()
 
     # Other than saving detection results through videos, which are the bounding boxes, this file reannotates the bounding boxes 
@@ -122,6 +124,18 @@ def main():
         df_summary = pd.DataFrame(time_records)
         df_summary.to_csv(summary_csv_path, index=False)
         print(f"Summary saved to {summary_csv_path}")
+
+    end_time = time.time()
+    total_runtime = end_time - start_time
+
+    hours, remainder = divmod(total_runtime, 3600)
+    minutes, seconds = divmod(remainder, 60)
+
+    print(
+        f"Total runtime: "
+        f"{int(hours)}h {int(minutes)}m {seconds:.2f}s "
+        f"({total_runtime:.2f} seconds)"
+    )
 
 if __name__ == "__main__":
     main()
