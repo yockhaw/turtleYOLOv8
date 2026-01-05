@@ -54,6 +54,9 @@ def parse_arguments():
     return parser.parse_args()
 
 def main():
+    import time
+    from datetime import datetime
+    
     args = parse_arguments()
 
     # Paths
@@ -78,9 +81,14 @@ def main():
     # Load metadata that links videos to flight records
     videometadata = pd.read_csv(full_flight_metadata)
 
+    timing_records = []
+
     # Process each unique flight record
     # Videos are nested within each flight record
     for flight_record_name in videometadata['FlightRecord'].unique():
+
+        start_time = time.perf_counter()
+        start_timestamp = datetime.utcnow().isoformat()
 
         flight_record_path = os.path.join(flight_record_metadata_folder, flight_record_name)
         if not os.path.exists(flight_record_path):
@@ -210,6 +218,30 @@ def main():
         output_map_path = os.path.join(finalmaps_folder, f"{flight_record_name.replace('.csv','')}_detections_map.png")
         fig.savefig(output_map_path, dpi=300, bbox_inches='tight')
         plt.close(fig)
+
+        elapsed_seconds = time.perf_counter() - start_time
+
+        timing_records.append({
+            "FlightRecord": flight_record_name,
+            "start_time_utc": start_timestamp,
+            "elapsed_seconds": round(elapsed_seconds, 3),
+            "num_videos": len(flight_videos),
+            "num_detections": len(combined_realworld)
+        })
+
+        print(
+            f"Finished {flight_record_name} in "
+            f"{elapsed_seconds:.2f} seconds "
+            f"({len(combined_realworld)} detections)"
+        )
+
+    timing_df = pd.DataFrame(timing_records)
+    timing_csv_path = os.path.join(
+        bbcount_folder, "flight_record_processing_times.csv"
+    )
+    timing_df.to_csv(timing_csv_path, index=False)
+
+    print(f"\nTiming summary saved to: {timing_csv_path}")
 
     print("\nFinished processing flight record:", flight_record_name)
 
