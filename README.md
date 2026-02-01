@@ -12,7 +12,7 @@ python src/Bvideomodelrunv2.py --ogvideo_folder ./data/cleanvideos --flight_fold
 
 To run the turtle track detections on turtle track images, use the following command: (replace the paths with the path of where you downloaded the data or where you stored your personal data)
 ```
-python src/Bphotomodelrun.py --model_path ./data/model/YOLOv8S.pt --photos_path ./data/photos --output_detections ./results/detectionsgraph.csv 
+python src/Bphotomodelrun.py --model_path ./data/model/YOLOv8S.pt --photos_path ./data/photos --output_detections ./data/photos/detectionsgraph.csv 
 ```
 
 To run the mapping of the turtle track detections from photos onto a satellite image use the following command: (replace the paths with the path of where you downloaded the data)
