@@ -17,7 +17,7 @@ python src/Bphotomodelrun.py --model_path ./data/model/YOLOv8S.pt --photos_path 
 
 To run the mapping of the turtle track detections from photos onto a satellite image use the following command: (replace the paths with the path of where you downloaded the data)
 ```
-python src/Dphotosmap.py --airdata_flight_record ./data/photosmetadataforD/19th.csv --qgis_metadata ./data/photosmetadataforD/19thcsv.csv --detections ./results/detectionsgraph.csv --satellite_image ./data/qgistiff/clippedCHTS.tif
+python src/Dphotosmap.py --airdata_flight_record ./data/photosmetadataforD/19th.csv --qgis_metadata ./data/photosmetadataforD/19thcsv.csv --detections ./data/photos/detectionsgraph.csv --satellite_image ./data/qgistiff/clippedCHTS.tif
 ```
 
 To get the video metadata, use the following command: (replace the paths with the path of where you downloaded the data or where you stored your personal data)
