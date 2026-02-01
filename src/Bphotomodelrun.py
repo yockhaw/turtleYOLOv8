@@ -59,7 +59,7 @@ def main():
 
         original_image_path = r.path  # This is the original image path
         original_filename = os.path.basename(original_image_path)  # Get the original filename
-        result_image_path = f"./results/{original_filename}"
+        result_image_path = f"./data/photos/{original_filename}"
 
         
         im_rgb.save(result_image_path)
